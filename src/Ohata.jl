@@ -1,4 +1,4 @@
-module QuantumFoca
+module Ohata
 using LinearAlgebra
 using SpecialFunctions
 
