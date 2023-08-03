@@ -1,10 +1,10 @@
-# QuantumFoca.jl: An application for Computational Chemists
+# Ohata.jl: An application for Computational Chemists
 
 ![HartreeFoca jl](https://user-images.githubusercontent.com/60739184/170071106-68ba0e42-08a5-4923-b69a-d5db945bdf7b.svg)
 
-[![Issues](https://img.shields.io/github/issues-raw/Leticia-maria/Foca.jl?style=for-the-badge)](https://github.com/Leticia-maria/QuantumFoca.jl/)
-[![Build Status](https://img.shields.io/github/workflow/status/Leticia-maria/Foca.jl/CI?style=for-the-badge)](https://github.com/Leticia-maria/QuantumFoca.jl/actions/workflows/CI.yml?query=branch%3Amain)
-[![Commit Activity](https://img.shields.io/github/commit-activity/w/Leticia-maria/Foca.jl/main?style=for-the-badge)](https://github.com/Leticia-maria/QuantumFoca.jl/)
+[![Issues](https://img.shields.io/github/issues-raw/Leticia-maria/Foca.jl?style=for-the-badge)](https://github.com/Leticia-maria/Ohata.jl/)
+[![Build Status](https://img.shields.io/github/workflow/status/Leticia-maria/Foca.jl/CI?style=for-the-badge)](https://github.com/Leticia-maria/Ohata.jl/actions/workflows/CI.yml?query=branch%3Amain)
+[![Commit Activity](https://img.shields.io/github/commit-activity/w/Leticia-maria/Foca.jl/main?style=for-the-badge)](https://github.com/Leticia-maria/Ohata.jl/)
 [![DOI](https://zenodo.org/badge/419452183.svg)](https://zenodo.org/badge/latestdoi/419452183)
 
 
@@ -15,7 +15,7 @@
 To install the package, you will call the Julia Package Manager on your REPL:
 
 ```julia
-]add QuantumFoca
+]add Ohata
 ```
 
 Done! Now it is *ready to use*

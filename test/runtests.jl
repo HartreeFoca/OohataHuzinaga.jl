@@ -1,7 +1,7 @@
-using QuantumFoca
+using Ohata
 using Test
 
-@testset "QuantumFoca.jl" begin
+@testset "Ohata.jl" begin
     include("molecule.jl")
     include("basis.jl")
     include("doublefactorial.jl")

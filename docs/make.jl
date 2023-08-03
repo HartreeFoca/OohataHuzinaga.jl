@@ -1,15 +1,15 @@
 push!(LOAD_PATH, "../src/")
 
-using QuantumFoca
+using Ohata
 using Documenter
 
 makedocs(
-    sitename = "QuantumFoca.jl",
-    modules = [QuantumFoca],
+    sitename = "Ohata.jl",
+    modules = [Ohata],
     pages = [
         "Home" => "index.md",
         "API" => ["Input" => "input.md", "Basis Sets" => "basis.md"],
     ],
 )
 
-deploydocs(; repo = "github.com/Leticia-maria/QuantumFoca.jl.git")
+deploydocs(; repo = "github.com/HartreeFoca/Ohata.jl.git")
