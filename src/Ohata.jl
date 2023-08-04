@@ -1,6 +1,7 @@
 module Ohata
 using LinearAlgebra
 using SpecialFunctions
+using TimerOutputs
 
 include("atoms.jl")
 include("molecule.jl")
