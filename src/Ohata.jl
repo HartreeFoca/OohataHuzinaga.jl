@@ -1,4 +1,4 @@
-module Ohata
+module OohataHuzinaga
 using LinearAlgebra
 using SpecialFunctions
 using TimerOutputs
