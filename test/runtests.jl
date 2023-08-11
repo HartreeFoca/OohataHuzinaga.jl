@@ -1,7 +1,7 @@
-using Ohata
+using OohataHuzinaga
 using Test
 
-@testset "Ohata.jl" begin
+@testset "OohataHuzinaga.jl" begin
     include("molecule.jl")
     include("basis.jl")
     include("doublefactorial.jl")

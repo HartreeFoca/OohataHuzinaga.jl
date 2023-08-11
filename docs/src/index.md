@@ -1,4 +1,4 @@
-# Ohata.jl: An application for Computational Chemists
+# OohataHuzinaga.jl: An application for Computational Chemists
 
 ## Overview
 
@@ -7,7 +7,7 @@
 To install the package, you will call the Julia Package Manager on your REPL:
 
 ```julia
-]add Ohata
+]add OohataHuzinaga
 ```
 
 Done! Now it is *ready to use*
