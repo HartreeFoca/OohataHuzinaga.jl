@@ -30,6 +30,8 @@ function computeenergy(basis, molecule::Molecule, maxiter = 20, convergence = 1e
 
         F = Hcore .+ P
         Fp = X .* F .* X
+        println(Fp)
+        
         Cp = eigvecs(Fp)
         C = X .* Cp
 
