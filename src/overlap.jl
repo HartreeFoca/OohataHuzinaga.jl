@@ -11,7 +11,7 @@ end
 """
 This function calculates the overlap integrals
 """
-function overlap(basis, molecule::Molecule)
+function overlap(basis)
     K = length(basis)
     S = zeros(K, K)
 
