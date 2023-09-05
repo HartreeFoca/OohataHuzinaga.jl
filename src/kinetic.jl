@@ -17,11 +17,11 @@ function kinetic(basis, molecule::Molecule)
 
     for (i, basisᵢ) in enumerate(basis)
         for (j, basisⱼ) in enumerate(basis)
+            Rᵢ = basisᵢ.R
+            Rⱼ = basisⱼ.R
+
             for (αᵢ, dᵢ) in zip(basisᵢ.α, basisᵢ.d)
                 for (αⱼ, dⱼ) in zip(basisⱼ.α, basisⱼ.d)
-
-                    Rᵢ = basisᵢ.R
-                    Rⱼ = basisⱼ.R
 
                     ℓᵢ, mᵢ, nᵢ = basisᵢ.ℓ, basisᵢ.m, basisᵢ.n
                     ℓⱼ, mⱼ, nⱼ = basisⱼ.ℓ, basisⱼ.m, basisⱼ.n
