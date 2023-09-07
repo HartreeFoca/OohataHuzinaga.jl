@@ -41,3 +41,33 @@ function overlap(basis, molecule::Molecule)
 
     return S
 end
+
+function overlap_2(basis, molecule::Molecule)
+    K = length(basis)
+    S = zeros(K, K)
+
+    for (i, basisᵢ) in enumerate(basis)
+        for (j, basisⱼ) in enumerate(basis)
+            for (αᵢ, dᵢ) in zip(basisᵢ.α, basisᵢ.d)
+                for (αⱼ, dⱼ) in zip(basisⱼ.α, basisⱼ.d)
+                    Rᵢ = basisᵢ.R
+                    Rⱼ = basisⱼ.R
+                    
+                    ℓᵢ, mᵢ, nᵢ = basisᵢ.ℓ, basisᵢ.m, basisᵢ.n
+                    ℓⱼ, mⱼ, nⱼ = basisⱼ.ℓ, basisⱼ.m, basisⱼ.n
+
+                    S[i, j] += (
+                        exp(-αᵢ * αⱼ * distance(Rᵢ, Rⱼ) / (αᵢ + αⱼ)) *
+                        normalization(αᵢ, ℓᵢ, mᵢ, nᵢ) *
+                        normalization(αⱼ, ℓⱼ, mⱼ, nⱼ) *
+                        dᵢ *
+                        dⱼ *
+                        Sxyz(Rᵢ, Rⱼ, αᵢ, αⱼ, ℓᵢ, ℓⱼ, mᵢ, mⱼ, nᵢ, nⱼ)
+                    )
+                end
+            end
+        end
+    end
+
+    return S
+end
