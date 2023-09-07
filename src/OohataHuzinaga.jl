@@ -2,6 +2,7 @@ module OohataHuzinaga
 using LinearAlgebra
 using SpecialFunctions
 using TimerOutputs
+using StaticArrays
 
 include("atoms.jl")
 include("molecule.jl")
