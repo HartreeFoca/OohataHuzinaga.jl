@@ -19,6 +19,7 @@ function overlap(basis, molecule::Molecule)
         for (j, basisⱼ) in enumerate(basis)
             Rᵢ = basisᵢ.R
             Rⱼ = basisⱼ.R
+            dist = distance(Rᵢ, Rⱼ)
 
             for (αᵢ, dᵢ) in zip(basisᵢ.α, basisᵢ.d)
                 for (αⱼ, dⱼ) in zip(basisⱼ.α, basisⱼ.d)
@@ -27,7 +28,7 @@ function overlap(basis, molecule::Molecule)
                     ℓⱼ, mⱼ, nⱼ = basisⱼ.ℓ, basisⱼ.m, basisⱼ.n
 
                     S[i, j] += (
-                        exp(-αᵢ * αⱼ * distance(Rᵢ, Rⱼ) / (αᵢ + αⱼ)) *
+                        exp(-αᵢ * αⱼ * dist / (αᵢ + αⱼ)) *
                         normalization(αᵢ, ℓᵢ, mᵢ, nᵢ) *
                         normalization(αⱼ, ℓⱼ, mⱼ, nⱼ) *
                         dᵢ *
@@ -52,7 +53,7 @@ function overlap_2(basis, molecule::Molecule)
                 for (αⱼ, dⱼ) in zip(basisⱼ.α, basisⱼ.d)
                     Rᵢ = basisᵢ.R
                     Rⱼ = basisⱼ.R
-                    
+
                     ℓᵢ, mᵢ, nᵢ = basisᵢ.ℓ, basisᵢ.m, basisᵢ.n
                     ℓⱼ, mⱼ, nⱼ = basisⱼ.ℓ, basisⱼ.m, basisⱼ.n
 
