@@ -26,6 +26,7 @@ export gaussianproduct
 export normalization
 
 export overlap
+export overlap_2
 export kinetic
 export boys
 export attraction
