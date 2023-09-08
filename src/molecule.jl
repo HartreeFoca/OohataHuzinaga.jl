@@ -5,9 +5,9 @@ abstract type ChemicalEntity end
 ```Molecule``` is a *subtype* of ```ChemicalEntity``` that stores coordinates, atomic symbols and atomic numbers as objects. 
 """
 struct Molecule <: ChemicalEntity
-    atoms::Vector{String}
-    coords::Matrix{Float64}
-    numbers::Vector{Int64}
+    atoms::SVector{String}
+    coords::SMatrix{Float64}
+    numbers::SVector{Int64}
 end
 
 
