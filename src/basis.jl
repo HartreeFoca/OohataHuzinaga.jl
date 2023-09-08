@@ -15,9 +15,9 @@ orbitals, or numerical atomic orbitals. Out of the three, Gaussian-type orbitals
 implementations of Post-Hartree–Fock methods. 
 """
 struct GaussianBasis <: Basis
-    R::SVector{Float64}
-    α::SVector{Float64}
-    d::SVector{Float64}
+    R::Vector{Float64}
+    α::Vector{Float64}
+    d::Vector{Float64}
     ℓ::Int64
     m::Int64
     n::Int64

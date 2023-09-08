@@ -5,9 +5,9 @@ abstract type ChemicalEntity end
 ```Molecule``` is a *subtype* of ```ChemicalEntity``` that stores coordinates, atomic symbols and atomic numbers as objects. 
 """
 struct Molecule <: ChemicalEntity
-    atoms::SVector{String}
-    coords::SMatrix{Float64}
-    numbers::SVector{Int64}
+    atoms::Vector{String}
+    coords::Matrix{Float64}
+    numbers::Vector{Int64}
 end
 
 
@@ -36,9 +36,9 @@ molecule(PATH)
 ```
 """
 function molecule(xyzfile::String)::Molecule
-    elements = String[]
+    elements = []
     coordinates = []
-    Zvalues = Int[]
+    Zvalues = []
 
     for line in Iterators.drop(eachline(xyzfile), 2)
         fields = split(line)
