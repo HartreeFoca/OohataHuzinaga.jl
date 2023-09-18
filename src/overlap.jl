@@ -44,7 +44,7 @@ function overlap(basis, molecule::Molecule)
 end
 
 function overlap_2(basis, molecule::Molecule)
-    n = length(basis)
+    n = length(basis) 
     S = zeros(n, n)
 
     for i in 1:n, j in 1:n
@@ -63,8 +63,10 @@ function overlap_2(basis, molecule::Molecule)
         ℓᵢ, mᵢ, nᵢ = basisᵢ.ℓ, basisᵢ.m, basisᵢ.n
         ℓⱼ, mⱼ, nⱼ = basisⱼ.ℓ, basisⱼ.m, basisⱼ.n
 
+        dist = distance(Rᵢ, Rⱼ)
+
         S[i, j] += (
-            exp(-αᵢ * αⱼ * distance(Rᵢ, Rⱼ) / (αᵢ + αⱼ)) *
+            exp(-αᵢ * αⱼ * dist / (αᵢ + αⱼ)) *
             normalization(αᵢ, ℓᵢ, mᵢ, nᵢ) *
             normalization(αⱼ, ℓⱼ, mⱼ, nⱼ) *
             dᵢ *
