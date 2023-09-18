@@ -53,26 +53,32 @@ function overlap_2(basis, molecule::Molecule)
 
         αᵢ = basisᵢ.α
         αⱼ = basisⱼ.α
+        println(αᵢ)
 
         dᵢ = basisᵢ.d
         dⱼ = basisⱼ.d
+
+        
                 
         Rᵢ = basisᵢ.R
+        println(Rᵢ)
         Rⱼ = basisⱼ.R
+        println(Rⱼ)
 
         ℓᵢ, mᵢ, nᵢ = basisᵢ.ℓ, basisᵢ.m, basisᵢ.n
         ℓⱼ, mⱼ, nⱼ = basisⱼ.ℓ, basisⱼ.m, basisⱼ.n
 
         dist = distance(Rᵢ, Rⱼ)
+        println(dist)
 
         S[i, j] += (
-            exp(-αᵢ * αⱼ * dist / (αᵢ + αⱼ)) *
-            normalization(αᵢ, ℓᵢ, mᵢ, nᵢ) *
-            normalization(αⱼ, ℓⱼ, mⱼ, nⱼ) *
-            dᵢ *
-            dⱼ *
-            Sxyz(Rᵢ, Rⱼ, αᵢ, αⱼ, ℓᵢ, ℓⱼ, mᵢ, mⱼ, nᵢ, nⱼ)
-        )
+                        exp(-αᵢ * αⱼ * dist / (αᵢ + αⱼ)) *
+                        normalization(αᵢ, ℓᵢ, mᵢ, nᵢ) *
+                        normalization(αⱼ, ℓⱼ, mⱼ, nⱼ) *
+                        dᵢ *
+                        dⱼ *
+                        Sxyz(Rᵢ, Rⱼ, αᵢ, αⱼ, ℓᵢ, ℓⱼ, mᵢ, mⱼ, nᵢ, nⱼ)
+                    )
     end
 
     return S
