@@ -25,10 +25,7 @@ end
 The coefficients are multiplied by the (x,y,z) coordinates of the points.
 """
 function distance(Rᵢ, Rⱼ)
-    d = 0
-    for i = 1:3
-        d += (Rᵢ[i] .- Rⱼ[i])^2
-    end
+    d = (Rᵢ[1] - Rⱼ[1])^2 + (Rᵢ[2] - Rⱼ[2])^2 + (Rᵢ[3] - Rⱼ[3])^2
 
     return d
 end
@@ -45,11 +42,10 @@ end
 
 function cₖ(j, l, m, A, B)
     coefficient = 0
-    for k = 0:l
-        for i = 0:m
-            if (i + k == j)
-                coefficient += binomial(l, k) * binomial(m, i) * A^(l - k) * B^(m - i)
-            end
+    
+    for k in 0:l, i in 0:m
+        if (i + k == j)
+            coefficient += binomial(l, k) * binomial(m, i) * A^(l - k) * B^(m - i)
         end
     end
 
@@ -59,7 +55,7 @@ end
 function sᵢ(ℓᵢ, ℓⱼ, γ, Aᵢ, Bᵢ, Pᵢ)
     sᵢ = 0
 
-    for j = 0:trunc(Int64, ((ℓᵢ + ℓⱼ) / 2))
+    for j in 0:floor(Int64, ((ℓᵢ + ℓⱼ) / 2))
         sᵢ +=
             cₖ((2 * j), ℓᵢ, ℓⱼ, (Pᵢ - Aᵢ), (Pᵢ - Bᵢ)) * doublefactorial(2 * j - 1) /
             (2 * γ)^j
