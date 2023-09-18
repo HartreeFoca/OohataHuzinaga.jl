@@ -1,6 +1,3 @@
-"""
-This function calculate the double factorial of a number.
-"""
 function doublefactorial(number)
     fact = one(number)
     if number % 2 == 0
@@ -20,10 +17,6 @@ function doublefactorial(number)
     return fact
 end
 
-"""Compute the square of the distance between two points.
-            |A|² = (Aₐ - Bₐ)² - (Aₑ - Bₑ)² - (Aₒ - Bₒ)². 
-The coefficients are multiplied by the (x,y,z) coordinates of the points.
-"""
 function distance(Rᵢ, Rⱼ)
     d = (Rᵢ[1] - Rⱼ[1])^2 + (Rᵢ[2] - Rⱼ[2])^2 + (Rᵢ[3] - Rⱼ[3])^2
 
