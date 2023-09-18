@@ -1,17 +1,7 @@
-function Sxyz(Rᵢ, Rⱼ, αᵢ, αⱼ, ℓᵢ, ℓⱼ, mᵢ, mⱼ, nᵢ, nⱼ)
-    Rₚ = gaussianproduct(αᵢ, Rᵢ, αⱼ, Rⱼ, αᵢ + αⱼ)
-
-    Sx = sᵢ(ℓᵢ, ℓⱼ, αᵢ + αⱼ, Rᵢ[1], Rⱼ[1], Rₚ[1])
-    Sy = sᵢ(mᵢ, mⱼ, αᵢ + αⱼ, Rᵢ[2], Rⱼ[2], Rₚ[2])
-    Sz = sᵢ(nᵢ, nⱼ, αᵢ + αⱼ, Rᵢ[3], Rⱼ[3], Rₚ[3])
-
-    return Sx * Sy * Sz
-end
-
 """
-This function calculates the overlap integrals
+This function calculates the integral kernel
 """
-function overlap(basis, molecule::Molecule)
+function kernel(basis, operator)
     n = length(basis) 
     S = zeros(n, n)
 
@@ -27,7 +17,7 @@ function overlap(basis, molecule::Molecule)
         m = length(basisᵢ.α)
         p = length(basisⱼ.α)
 
-        for k in 1:m, l in 1:p
+        @views for k in 1:m, l in 1:p
             αᵢ = basisᵢ.α[k]
             αⱼ = basisⱼ.α[l]
 
@@ -36,6 +26,8 @@ function overlap(basis, molecule::Molecule)
 
             ℓᵢ, mᵢ, nᵢ = basisᵢ.ℓ, basisᵢ.m, basisᵢ.n
             ℓⱼ, mⱼ, nⱼ = basisⱼ.ℓ, basisⱼ.m, basisⱼ.n
+
+            operator(αᵢ, αⱼ, Rᵢ, Rⱼ, dist, ℓᵢ, ℓⱼ, mᵢ, mⱼ, nᵢ, nⱼ)
 
             S[i, j] += (
                 exp(-αᵢ * αⱼ * dist / (αᵢ + αⱼ)) *

@@ -69,10 +69,11 @@ function sᵢ(ℓᵢ, ℓⱼ, γ, Aᵢ, Bᵢ, Pᵢ)
 end
 
 function gaussianproduct(αᵢ, Rᵢ, αⱼ, Rⱼ, γ)
-    P = []
-    for i = 1:3
-        push!(P, ((αᵢ * Rᵢ[i] + αⱼ * Rⱼ[i]) / γ))
-    end
+    P = [
+        (αᵢ * Rᵢ[1] + αⱼ * Rⱼ[1]) / γ;
+        (αᵢ * Rᵢ[2] + αⱼ * Rⱼ[2]) / γ;
+        (αᵢ * Rᵢ[3] + αⱼ * Rⱼ[3]) / γ
+    ]
 
-    return hcat(P)
+    return P
 end

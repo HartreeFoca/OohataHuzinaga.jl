@@ -24,6 +24,7 @@ export buildbasis
 
 export doublefactorial
 export gaussianproduct
+export gaussianproduct_2
 export normalization
 
 export overlap
