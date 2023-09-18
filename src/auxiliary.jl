@@ -1,18 +1,5 @@
 function doublefactorial(number)
-    fact = one(number)
-    if number % 2 == 0
-        for m = 1:number
-            if m % 2 == 0
-                fact *= m
-            end
-        end
-    elseif number % 2 == 1
-        for m = 1:number
-            if m % 2 == 1
-                fact *= m
-            end
-        end
-    end
+    fact = foldl(Base.:*, range(number, 1, step=-2))
 
     return fact
 end
