@@ -56,21 +56,27 @@ function overlap_2(basis, molecule::Molecule)
 
         dist = distance(Rᵢ, Rⱼ)
 
-        for (αᵢ, dᵢ) in zip(basisᵢ.α, basisᵢ.d)
-            for (αⱼ, dⱼ) in zip(basisⱼ.α, basisⱼ.d)
+        m = length(basisᵢ.α)
+        p = length(basisⱼ.α)
 
-                ℓᵢ, mᵢ, nᵢ = basisᵢ.ℓ, basisᵢ.m, basisᵢ.n
-                ℓⱼ, mⱼ, nⱼ = basisⱼ.ℓ, basisⱼ.m, basisⱼ.n
+        for k in 1:m, l in 1:p
+            αᵢ = basisᵢ.α[k]
+            αⱼ = basisⱼ.α[l]
 
-                S[i, j] += (
-                    exp(-αᵢ * αⱼ * dist / (αᵢ + αⱼ)) *
-                    normalization(αᵢ, ℓᵢ, mᵢ, nᵢ) *
-                    normalization(αⱼ, ℓⱼ, mⱼ, nⱼ) *
-                    dᵢ *
-                    dⱼ *
-                    Sxyz(Rᵢ, Rⱼ, αᵢ, αⱼ, ℓᵢ, ℓⱼ, mᵢ, mⱼ, nᵢ, nⱼ)
-                )
-            end
+            dᵢ = basisᵢ.d[k]
+            dⱼ = basisⱼ.d[l]
+
+            ℓᵢ, mᵢ, nᵢ = basisᵢ.ℓ, basisᵢ.m, basisᵢ.n
+            ℓⱼ, mⱼ, nⱼ = basisⱼ.ℓ, basisⱼ.m, basisⱼ.n
+            
+            S[i, j] += (
+                exp(-αᵢ * αⱼ * dist / (αᵢ + αⱼ)) *
+                normalization(αᵢ, ℓᵢ, mᵢ, nᵢ) *
+                normalization(αⱼ, ℓⱼ, mⱼ, nⱼ) *
+                dᵢ *
+                dⱼ *
+                Sxyz(Rᵢ, Rⱼ, αᵢ, αⱼ, ℓᵢ, ℓⱼ, mᵢ, mⱼ, nᵢ, nⱼ)
+            )
         end
     end
 
