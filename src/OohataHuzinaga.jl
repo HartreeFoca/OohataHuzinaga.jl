@@ -3,6 +3,7 @@ using LinearAlgebra
 using SpecialFunctions
 using TimerOutputs
 using StaticArrays
+using BasisSets
 
 include("auxiliary.jl")
 include("overlap.jl")
