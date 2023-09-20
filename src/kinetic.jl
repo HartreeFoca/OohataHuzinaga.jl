@@ -12,30 +12,39 @@ function Kxyz(Rᵢ, Rⱼ, αᵢ, αⱼ, ℓᵢ, ℓⱼ, mᵢ, mⱼ, nᵢ, nⱼ)
 end
 
 function kinetic(basis, molecule::Molecule)
-    K = length(basis)
-    T = zeros(K, K)
+    n = length(basis)
+    T = zeros(n, n)
 
-    for (i, basisᵢ) in enumerate(basis)
-        for (j, basisⱼ) in enumerate(basis)
-            Rᵢ = basisᵢ.R
-            Rⱼ = basisⱼ.R
+    for i in 1:n, j in 1:n
+        basisᵢ = basis[i]
+        basisⱼ = basis[j]
+        
+        Rᵢ = basisᵢ.R
+        Rⱼ = basisⱼ.R
 
-            for (αᵢ, dᵢ) in zip(basisᵢ.α, basisᵢ.d)
-                for (αⱼ, dⱼ) in zip(basisⱼ.α, basisⱼ.d)
+        dist = distance(Rᵢ, Rⱼ)
 
-                    ℓᵢ, mᵢ, nᵢ = basisᵢ.ℓ, basisᵢ.m, basisᵢ.n
-                    ℓⱼ, mⱼ, nⱼ = basisⱼ.ℓ, basisⱼ.m, basisⱼ.n
+        m = length(basisᵢ.α)
+        p = length(basisⱼ.α)
 
-                    T[i, j] += (
-                        exp(-αᵢ * αⱼ * distance(Rᵢ, Rⱼ) / (αᵢ + αⱼ)) *
-                        normalization(αᵢ, ℓᵢ, mᵢ, nᵢ) *
-                        normalization(αⱼ, ℓⱼ, mⱼ, nⱼ) *
-                        dᵢ *
-                        dⱼ *
-                        Kxyz(Rᵢ, Rⱼ, αᵢ, αⱼ, ℓᵢ, ℓⱼ, mᵢ, mⱼ, nᵢ, nⱼ)
-                    )
-                end
-            end
+        for k in 1:m, l in 1:p
+            αᵢ = basisᵢ.α[k]
+            αⱼ = basisⱼ.α[l]
+
+            dᵢ = basisᵢ.d[k]
+            dⱼ = basisⱼ.d[l]
+
+            ℓᵢ, mᵢ, nᵢ = basisᵢ.ℓ, basisᵢ.m, basisᵢ.n
+            ℓⱼ, mⱼ, nⱼ = basisⱼ.ℓ, basisⱼ.m, basisⱼ.n
+
+            T[i, j] += (
+                exp(-αᵢ * αⱼ * dist / (αᵢ + αⱼ)) *
+                normalization(αᵢ, ℓᵢ, mᵢ, nᵢ) *
+                normalization(αⱼ, ℓⱼ, mⱼ, nⱼ) *
+                dᵢ *
+                dⱼ *
+                Kxyz(Rᵢ, Rⱼ, αᵢ, αⱼ, ℓᵢ, ℓⱼ, mᵢ, mⱼ, nᵢ, nⱼ)
+            )
         end
     end
 

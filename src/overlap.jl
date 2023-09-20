@@ -8,8 +8,8 @@ function Sxyz(Rᵢ, Rⱼ, αᵢ, αⱼ, ℓᵢ, ℓⱼ, mᵢ, mⱼ, nᵢ, nⱼ)
     return Sx * Sy * Sz
 end
 
-function overlap(basis, molecule::Molecule)
-    n = length(basis) 
+function overlap(basis)
+    n = length(basis)
     S = zeros(n, n)
 
     for i in 1:n, j in 1:n
