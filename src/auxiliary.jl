@@ -20,7 +20,7 @@ function normalization(α, ℓ, m, n)
     return N
 end
 
-function cₖ(j, l, m, A, B)
+@fastmath function cₖ(j, l, m, A, B)
     coefficient = 0
     
     for k in 0:l, i in 0:m
@@ -40,6 +40,7 @@ function sᵢ(ℓᵢ, ℓⱼ, γ, Aᵢ, Bᵢ, Pᵢ)
             cₖ((2 * j), ℓᵢ, ℓⱼ, (Pᵢ - Aᵢ), (Pᵢ - Bᵢ)) * doublefactorial(2 * j - 1) /
             (2 * γ)^j
     end
+    
     sᵢ *= sqrt(π / γ)
     return sᵢ
 end
