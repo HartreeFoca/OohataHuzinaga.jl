@@ -1,6 +1,6 @@
 @time @testset "repulsion.jl" begin
     hydrogen = molecule("data/h2.xyz")
-    basis = buildbasis(hydrogen)
+    basis = parsebasis(hydrogen, "sto-3g")
     @test isapprox(
         repulsion(basis, hydrogen),
         [
