@@ -1,6 +1,6 @@
 @time @testset "attraction.jl" begin
     methane = molecule("data/methane.xyz")
-    basis = buildbasis(methane)
+    basis = parsebasis(methane, "sto-3g")
     @test isapprox(
         attraction(basis, methane),
         [
