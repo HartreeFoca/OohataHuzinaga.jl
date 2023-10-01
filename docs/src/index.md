@@ -39,7 +39,7 @@ methane = molecule("methane.xyz")
 For any molecular calculations, you will need a basis set.
 
 ```julia
-sto3g = buildbasis(methane)
+sto3g = parsebasis(methane, "sto-3g")
 ```
 
 With this information, we can build the molecular integrals.
