@@ -2,7 +2,6 @@ module OohataHuzinaga
 using LinearAlgebra
 using SpecialFunctions
 using TimerOutputs
-using StaticArrays
 using BasisSets
 
 include("auxiliary.jl")
