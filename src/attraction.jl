@@ -99,5 +99,5 @@ function attraction(basis, molecule::Molecule)
         end
     end
 
-    return V
+    return sum(V, dims=3)[:,:,1]
 end
