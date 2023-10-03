@@ -23,7 +23,7 @@ function nuclearrepulsion(molecule::Molecule)
     return Vnn
 end
 
-function computeenergy(basis, molecule::Molecule, maxiter = 20, convergence = 1e-6)
+function computeenergy_5(basis, molecule::Molecule, maxiter = 20, convergence = 1e-6)
     S = overlap(basis)
     T = kinetic(basis, molecule)
     V = attraction(basis, molecule)
@@ -37,6 +37,7 @@ function computeenergy(basis, molecule::Molecule, maxiter = 20, convergence = 1e
     P = zeros(K, K)
 
     X = sqrt(inv(S))
+    println(X)
 
     Eel = 0.0
 
@@ -53,11 +54,14 @@ function computeenergy(basis, molecule::Molecule, maxiter = 20, convergence = 1e
             end
         end
 
-        F = Hcore .+ P
-        Fp = X .* F .* X
+        F = Hcore + P          # Fock matrix = 1e + 2e contribution (Eq. 4)
+        Fp = X * F * X  
+               # transform Fock matrix to orthonormal basis (Eq. 5)
+        eigen_decomp = eigen(Fp)   # diagonalize orthonormalized Fock matrix
+        e = eigen_decomp.values
 
-        Cp = eigvecs(Fp)
-        C = X .* Cp
+        Cp = eigen_decomp.vectors
+        C = X * Cp
 
         N = electroncount(molecule)
 
