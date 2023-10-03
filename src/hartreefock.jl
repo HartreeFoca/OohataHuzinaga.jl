@@ -1,5 +1,5 @@
 function computeenergy(basis, molecule::Molecule, maxiter = 20, convergence = 1e-6)
-    S = overlap(basis, molecule)
+    S = overlap(molecule)
     T = kinetic(basis, molecule)
     V = attraction(basis, molecule)
     G = repulsion(basis, molecule)
