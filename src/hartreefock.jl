@@ -1,3 +1,13 @@
+function electroncount(molecule::Molecule)
+    N = 0
+
+    for atom in getatoms(molecule)
+        N += atom.number
+    end
+
+    return N
+end
+
 function computeenergy(basis, molecule::Molecule, maxiter = 20, convergence = 1e-6)
     S = overlap(basis)
     T = kinetic(basis, molecule)
@@ -34,6 +44,8 @@ function computeenergy(basis, molecule::Molecule, maxiter = 20, convergence = 1e
 
         Cp = eigvecs(Fp)
         C = X .* Cp
+
+        N = electroncount(moleculeß)
 
         for n = 1:K
             for m = 1:K
