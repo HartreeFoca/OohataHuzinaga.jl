@@ -8,6 +8,21 @@ function electroncount(molecule::Molecule)
     return N
 end
 
+function nuclearrepulsion(molecule::Molecule)
+    Vnn = 0.0
+    atoms = getatoms(molecule)
+
+    for i in 1:length(atoms), j in 1:length(atoms)
+        if j > i
+            num = atoms[i].number * atoms[j].number
+            den = sqrt(distance(atoms[i].coords, atoms[j].coords))
+            Vnn += num / den
+        end
+    end
+
+    return Vnn
+end
+
 function computeenergy(basis, molecule::Molecule, maxiter = 20, convergence = 1e-6)
     S = overlap(basis)
     T = kinetic(basis, molecule)
@@ -40,12 +55,11 @@ function computeenergy(basis, molecule::Molecule, maxiter = 20, convergence = 1e
 
         F = Hcore .+ P
         Fp = X .* F .* X
-        println(Fp)
 
         Cp = eigvecs(Fp)
         C = X .* Cp
 
-        N = electroncount(moleculeß)
+        N = electroncount(molecule)
 
         for n = 1:K
             for m = 1:K
@@ -67,5 +81,9 @@ function computeenergy(basis, molecule::Molecule, maxiter = 20, convergence = 1e
         if (abs(Eel - Eold) < convergence) && (iteration > 0)
             break
         end
+
+        Vnn = nuclearrepulsion(molecule)
+
+        println(Eel + Vnn)
     end
 end
