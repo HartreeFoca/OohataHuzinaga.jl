@@ -54,10 +54,10 @@ function computeenergy(basis, molecule::Molecule, maxiter = 20, convergence = 1e
             end
         end
 
-        F = Hcore + P          # Fock matrix = 1e + 2e contribution (Eq. 4)
+        F = Hcore + P         
         Fp = X * F * X  
-               # transform Fock matrix to orthonormal basis (Eq. 5)
-        eigen_decomp = eigen(Fp)   # diagonalize orthonormalized Fock matrix
+
+        eigen_decomp = eigen(Fp)   
         e = eigen_decomp.values
 
         Cp = eigen_decomp.vectors
