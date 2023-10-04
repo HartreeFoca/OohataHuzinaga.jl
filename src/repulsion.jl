@@ -271,7 +271,10 @@ function repulsion_2(basis, molecule::Molecule)
 
             tei = dᵢ * dⱼ * dₜ * dᵤ
             tei *= Gxyz(ℓᵢ, mᵢ, nᵢ, ℓⱼ, mⱼ, nⱼ, ℓₜ, mₜ, nₜ, ℓᵤ, mᵤ, nᵤ, αᵢ, αⱼ, αₜ, αᵤ, Rᵢ, Rⱼ, Rₜ, Rᵤ)
+            
             G[i, j, t, u] += tei
         end
     end
+
+    return G
 end
