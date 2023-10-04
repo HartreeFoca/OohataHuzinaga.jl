@@ -74,37 +74,9 @@ function Vxyz(ℓᵢ, mᵢ, nᵢ, ℓⱼ, mⱼ, nⱼ, αᵢ, αⱼ, Rᵢ, Rⱼ, 
 end
 
 function attraction(basis, molecule::Molecule)
-    n = length(molecule.atoms)
-    K = length(basis)
-    V = zeros(K, K, n)
-
-    for (i, basisᵢ) in enumerate(basis)
-        for (j, basisⱼ) in enumerate(basis)
-            for (k, Z) in enumerate(molecule.numbers)
-                for (αᵢ, dᵢ) in zip(basisᵢ.α, basisᵢ.d)
-                    for (αⱼ, dⱼ) in zip(basisⱼ.α, basisⱼ.d)
-
-                        Rᵢ = basisᵢ.R
-                        Rⱼ = basisⱼ.R
-                        Rₖ = molecule.coords[k, :]
-
-                        ℓᵢ, mᵢ, nᵢ = basisᵢ.ℓ, basisᵢ.m, basisᵢ.n
-                        ℓⱼ, mⱼ, nⱼ = basisⱼ.ℓ, basisⱼ.m, basisⱼ.n
-
-                        V[i, j, k] +=
-                            dᵢ * dⱼ * Vxyz(ℓᵢ, mᵢ, nᵢ, ℓⱼ, mⱼ, nⱼ, αᵢ, αⱼ, Rᵢ, Rⱼ, Rₖ, Z)
-                    end
-                end
-            end
-        end
-    end
-
-    return sum(V, dims=3)[:,:,1]
-end
-
-function attraction_2(basis, molecule::Molecule)
     natoms = length(molecule.atoms)
     atomicnumbers = molecule.numbers
+
     n = length(basis)
     V = zeros(n, n, natoms)
 

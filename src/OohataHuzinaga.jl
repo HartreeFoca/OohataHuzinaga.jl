@@ -20,7 +20,6 @@ export overlap
 export kinetic
 export boys
 export attraction
-export attraction_2
 export repulsion
 
 export computeenergy
