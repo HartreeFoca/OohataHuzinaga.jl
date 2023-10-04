@@ -111,3 +111,47 @@ function attraction(basis, molecule::Molecule)
     
     return sum(V, dims=3)[:,:,1]
 end
+
+function reducedimensions(matrix)
+    r = zeros(eltype(matrix), axes(matrix, 1), axes(matrix, 2))
+    sum!(r, matrix)
+end
+
+function attraction_2(basis, molecule::Molecule)
+    natoms = length(molecule.atoms)
+    atomicnumbers = molecule.numbers
+
+    n = length(basis)
+    V = zeros(n, n, natoms)
+
+    for i in 1:n, j in 1:n
+        basisᵢ = basis[i]
+        basisⱼ = basis[j]
+        
+        Rᵢ = basisᵢ.R
+        Rⱼ = basisⱼ.R
+
+        m = length(basisᵢ.α)
+        p = length(basisⱼ.α)
+
+        for natom in 1:natoms
+            Rₖ = molecule.coords[natom, :]
+
+            for k in 1:m, l in 1:p
+                αᵢ = basisᵢ.α[k]
+                αⱼ = basisⱼ.α[l]
+    
+                dᵢ = basisᵢ.d[k]
+                dⱼ = basisⱼ.d[l]
+    
+                ℓᵢ, mᵢ, nᵢ = basisᵢ.ℓ, basisᵢ.m, basisᵢ.n
+                ℓⱼ, mⱼ, nⱼ = basisⱼ.ℓ, basisⱼ.m, basisⱼ.n
+
+                V[i, j, natom] +=
+                            dᵢ * dⱼ * Vxyz(ℓᵢ, mᵢ, nᵢ, ℓⱼ, mⱼ, nⱼ, αᵢ, αⱼ, Rᵢ, Rⱼ, Rₖ, atomicnumbers[natom])
+            end
+        end
+    end
+    
+    return reducedimensions(V)
+end
