@@ -228,3 +228,50 @@ function repulsion(basis, molecule::Molecule)
 
     return G
 end
+
+function repulsion_2(basis, molecule::Molecule)
+    n = length(basis)
+    G = zeros(n, n, n, n)
+
+    Ntei = 0
+    
+    for i in 1:n, j in 1:n, t in 1:n, u in 1:n
+        basisᵢ = basis[i]
+        basisⱼ = basis[j]
+        basisₜ = basis[t]
+        basisᵤ = basis[u]
+        
+        Rᵢ = basisᵢ.R
+        Rⱼ = basisⱼ.R
+        Rₜ = basisₜ.R
+        Rᵤ = basisᵤ.R
+
+        m = length(basisᵢ.α)
+        p = length(basisⱼ.α)
+        q = length(basisₜ.α)
+        r = length(basisᵤ.α)
+
+        Ntei += 1
+
+        for k in 1:m, l in 1:p, s in 1:q, v in 1:r
+            αᵢ = basisᵢ.α[k]
+            αⱼ = basisⱼ.α[l]
+            αₜ = basisₜ.α[s]
+            αᵤ = basisᵤ.α[v]
+
+            dᵢ = basisᵢ.d[k]
+            dⱼ = basisⱼ.d[l]
+            dₜ = basisₜ.d[s]
+            dᵤ = basisᵤ.d[v]
+
+            ℓᵢ, mᵢ, nᵢ = basisᵢ.ℓ, basisᵢ.m, basisᵢ.n
+            ℓⱼ, mⱼ, nⱼ = basisⱼ.ℓ, basisⱼ.m, basisⱼ.n
+            ℓₜ, mₜ, nₜ = basisₜ.ℓ, basisₜ.m, basisₜ.n
+            ℓᵤ, mᵤ, nᵤ = basisᵤ.ℓ, basisᵤ.m, basisᵤ.n
+
+            tei = dᵢ * dⱼ * dₜ * dᵤ
+            tei *= Gxyz(ℓᵢ, mᵢ, nᵢ, ℓⱼ, mⱼ, nⱼ, ℓₜ, mₜ, nₜ, ℓᵤ, mᵤ, nᵤ, αᵢ, αⱼ, αₜ, αᵤ, Rᵢ, Rⱼ, Rₜ, Rᵤ)
+            G[i, j, t, u] += tei
+        end
+    end
+end
