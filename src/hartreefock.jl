@@ -102,7 +102,9 @@ function uhf(basis, molecule::Molecule, maxiter = 20, convergence = 1e-6)
 
     Hcore = T .+ V
 
-    D = zeros(K, K)
+    Dα = zeros(K, K)
+    Dβ = zeros(K, K)
+
     Pα = zeros(K, K)
     Pβ = zeros(K, K)
 
@@ -113,14 +115,16 @@ function uhf(basis, molecule::Molecule, maxiter = 20, convergence = 1e-6)
 
     for iteration = 0:maxiter
         Eold = Eel
+
         for n = 1:K
             for m = 1:K
                 Pα[m, n] = 0.0
                 Pβ[m, n] = 0.0
+
                 for ℓ = 1:K
                     for s = 1:K
-                        Pα[m, n] += D[ℓ, s] * (G[m, n, s, ℓ] - 0.5 * G[m, ℓ, s, n])
-                        Pβ[m, n] += D[ℓ, s] * (G[m, n, s, ℓ] - 0.5 * G[m, ℓ, s, n])
+                        Pα[m, n] += Dα[ℓ, s] * (G[m, n, s, ℓ] - 0.5 * G[m, ℓ, s, n])
+                        Pβ[m, n] += Dβ[ℓ, s] * (G[m, n, s, ℓ] - 0.5 * G[m, ℓ, s, n])
                     end
                 end
             end
@@ -151,6 +155,7 @@ function uhf(basis, molecule::Molecule, maxiter = 20, convergence = 1e-6)
             for m = 1:K
                 Dα[m, n] = 0.0
                 Dβ[m, n] = 0.0
+                
                 for a = 1:trunc(Int64, Nα / 2)
                     Dα[m, n] += (Cα[m, a] * Cα[n, a])
                 end
