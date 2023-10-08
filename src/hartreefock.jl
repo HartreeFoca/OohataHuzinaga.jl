@@ -155,13 +155,13 @@ function uhf(basis, molecule::Molecule, maxiter = 20, convergence = 1e-6)
             for m = 1:K
                 Dα[m, n] = 0.0
                 Dβ[m, n] = 0.0
-                
+
                 for a = 1:trunc(Int64, Nα / 2)
-                    Dα[m, n] += (Cα[m, a] * Cα[n, a])
+                    Dα[m, n] += 2 * (Cα[m, a] * Cα[n, a])
                 end
 
                 for b = 1:trunc(Int64, Nβ / 2)
-                    Dβ[m, n] += (Cβ[m, b] * Cβ[n, b])
+                    Dβ[m, n] += 2 * (Cβ[m, b] * Cβ[n, b])
                 end
             end
         end
