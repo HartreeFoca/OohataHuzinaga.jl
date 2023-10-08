@@ -22,6 +22,7 @@ export boys
 export attraction
 export repulsion
 
-export computeenergy
+export rhf
+export uhf
 
 end

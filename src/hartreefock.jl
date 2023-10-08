@@ -23,7 +23,7 @@ function nuclearrepulsion(molecule::Molecule)
     return Vnn
 end
 
-function computeenergy(basis, molecule::Molecule, maxiter = 20, convergence = 1e-6)
+function rhf(basis, molecule::Molecule, maxiter = 20, convergence = 1e-6)
     S = overlap(basis)
     T = kinetic(basis, molecule)
     V = attraction(basis, molecule)
@@ -79,6 +79,93 @@ function computeenergy(basis, molecule::Molecule, maxiter = 20, convergence = 1e
         for m = 1:K
             for n = 1:K
                 Eel += 0.5 * D[n, m] * (Hcore[m, n] + F[m, n])
+            end
+        end
+
+        if (abs(Eel - Eold) < convergence) && (iteration > 0)
+            break
+        end
+
+        Vnn = nuclearrepulsion(molecule)
+
+        println(Eel + Vnn)
+    end
+end
+
+function uhf(basis, molecule::Molecule, maxiter = 20, convergence = 1e-6)
+    S = overlap(basis)
+    T = kinetic(basis, molecule)
+    V = attraction(basis, molecule)
+    G = repulsion(basis, molecule)
+
+    K = length(basis)
+
+    Hcore = T .+ V
+
+    D = zeros(K, K)
+    Pα = zeros(K, K)
+    Pβ = zeros(K, K)
+
+    X = sqrt(inv(S))
+    println(X)
+
+    Eel = 0.0
+
+    for iteration = 0:maxiter
+        Eold = Eel
+        for n = 1:K
+            for m = 1:K
+                Pα[m, n] = 0.0
+                Pβ[m, n] = 0.0
+                for ℓ = 1:K
+                    for s = 1:K
+                        Pα[m, n] += D[ℓ, s] * (G[m, n, s, ℓ] - 0.5 * G[m, ℓ, s, n])
+                        Pβ[m, n] += D[ℓ, s] * (G[m, n, s, ℓ] - 0.5 * G[m, ℓ, s, n])
+                    end
+                end
+            end
+        end
+
+        Fα = Hcore + Pα 
+        Fβ = Hcore + Pβ
+
+        Fαp = X * Fα * X  
+        Fβp = X * Fβ * X
+
+        eigen_decomp_α = eigen(Fαp) 
+        eigen_decomp_β = eigen(Fβp)  
+
+        eα = eigen_decomp_α.values
+        eβ = eigen_decomp_β.values
+
+        Cαp = eigen_decomp_α.vectors
+        Cβp = eigen_decomp_β.vectors
+
+        Cα = X * Cαp
+        Cβ = X * Cβp
+
+        Nα = electroncount(molecule)
+        Nβ = electroncount(molecule)
+
+        for n = 1:K
+            for m = 1:K
+                Dα[m, n] = 0.0
+                Dβ[m, n] = 0.0
+                for a = 1:trunc(Int64, Nα / 2)
+                    Dα[m, n] += (Cα[m, a] * Cα[n, a])
+                end
+
+                for b = 1:trunc(Int64, Nβ / 2)
+                    Dβ[m, n] += (Cβ[m, b] * Cβ[n, b])
+                end
+            end
+        end
+
+        Eel = 0.0
+
+        for m = 1:K
+            for n = 1:K
+                Eel += 0.5 * (Dα[n, m] + Dβ[n,m]) * (Hcore[m, n] + Fα[m, n] + Fβ[m, n])
             end
         end
 
