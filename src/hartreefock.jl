@@ -148,8 +148,8 @@ function uhf(basis, molecule::Molecule, maxiter = 20, convergence = 1e-6)
         Cα = X * Cαp
         Cβ = X * Cβp
 
-        Nα = electroncount(molecule)
-        Nβ = electroncount(molecule)
+        Nα = electroncount(molecule)/2
+        Nβ = electroncount(molecule)/2
 
         for n = 1:K
             for m = 1:K
