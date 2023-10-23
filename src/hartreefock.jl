@@ -23,7 +23,7 @@ function nuclearrepulsion(molecule::Molecule)
     return Vnn
 end
 
-function rhf(basis, molecule::Molecule, maxiter = 20, convergence = 1e-6)
+function rhf(basis, molecule::Molecule, maxiter = 20, convergence = 1e-6, maxdiis = 5)
     S = overlap(basis)
     T = kinetic(basis, molecule)
     V = attraction(basis, molecule)
@@ -41,6 +41,9 @@ function rhf(basis, molecule::Molecule, maxiter = 20, convergence = 1e-6)
 
     Eel = 0.0
 
+    error_vectors = []
+    Fock_list = []
+
     for iteration = 0:maxiter
         Eold = Eel
         for n = 1:K
@@ -54,7 +57,35 @@ function rhf(basis, molecule::Molecule, maxiter = 20, convergence = 1e-6)
             end
         end
 
-        F = Hcore + P         
+        F = Hcore + P
+        
+        error = F * D * S - S * D * F
+        push!(error_vectors, error)
+        push!(Fock_list, F)
+
+        if length(error_vectors) > maxdiis
+            popfirst!(error_vectors)
+            popfirst!(Fock_list)
+        end
+
+        if length(error_vectors) > 1
+            dim_B = length(error_vectors) + 1
+            B = zeros(dim_B, dim_B)
+            B[dim_B, dim_B] = 0.0
+
+            for i in 1:length(error_vectors), j in 1:length(error_vectors)
+                B[i, j] = sum(error_vectors[i] .* error_vectors[j])
+                B[dim_B, i] = -1.0
+                B[i, dim_B] = -1.0
+            end
+
+            rhs = zeros(dim_B)
+            rhs[dim_B] = -1.0
+            coeffs = B \ rhs
+
+            F = sum(coeffs[i] * Fock_list[i] for i in 1:length(error_vectors))
+        end
+
         Fp = X * F * X  
 
         eigen_decomp = eigen(Fp)   
