@@ -25,24 +25,33 @@ end
 
 function rhf(basis, molecule::Molecule, maxiter = 20, convergence = 1e-6, maxdiis = 5)
     S = overlap(basis)
+    println("Overlap is done!")
+
     T = kinetic(basis, molecule)
+    println("Kinetic is done!")
+
     V = attraction(basis, molecule)
+    println("Attraction is done!")
+
     G = repulsion(basis, molecule)
+    println("Repulsion is done!")
 
     K = length(basis)
 
     Hcore = T .+ V
+    println("HCore is done!")
 
     D = zeros(K, K)
     P = zeros(K, K)
 
     X = sqrt(inv(S))
-    println(X)
 
     Eel = 0.0
 
     error_vectors = []
     Fock_list = []
+
+    println("Starting SCF iterations...")
 
     for iteration = 0:maxiter
         Eold = Eel
