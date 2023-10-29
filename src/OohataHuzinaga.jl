@@ -23,6 +23,5 @@ export attraction
 export repulsion
 
 export rhf
-export uhf
 
 end
