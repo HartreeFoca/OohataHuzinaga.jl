@@ -114,8 +114,6 @@ function rhf(basis, molecule::Molecule, maxiter = 20, convergence = 1e-6, maxdii
             end
         end
 
-        Eel = 0.0
-
         for m = 1:K
             for n = 1:K
                 Eel += 0.5 * D[n, m] * (Hcore[m, n] + F[m, n])
