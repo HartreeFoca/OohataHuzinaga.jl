@@ -42,7 +42,6 @@ function rhf(basis, molecule::Molecule, maxiter = 20, convergence = 1e-6, maxdii
     println("HCore is done!")
 
     D = zeros(K, K)
-    P = zeros(K, K)
 
     X = sqrt(inv(S))
 
@@ -55,6 +54,9 @@ function rhf(basis, molecule::Molecule, maxiter = 20, convergence = 1e-6, maxdii
 
     for iteration = 0:maxiter
         Eold = Eel
+
+        P = zeros(K, K)
+        
         for n = 1:K
             for m = 1:K
                 P[m, n] = 0.0
