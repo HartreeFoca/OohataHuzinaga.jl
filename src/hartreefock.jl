@@ -56,16 +56,9 @@ function rhf(basis, molecule::Molecule, maxiter = 20, convergence = 1e-6, maxdii
         Eold = Eel
 
         P = zeros(K, K)
-        
-        for n = 1:K
-            for m = 1:K
-                P[m, n] = 0.0
-                for ℓ = 1:K
-                    for s = 1:K
-                        P[m, n] += D[ℓ, s] * (G[m, n, s, ℓ] - 0.5 * G[m, ℓ, s, n])
-                    end
-                end
-            end
+
+        for m in 1:K, n in 1:K
+            P[m, n] = sum(D[ℓ, s] * (G[m, n, s, ℓ] - 0.5 * G[m, ℓ, s, n]) for ℓ in 1:K, s in 1:K)
         end
 
         F = Hcore + P
@@ -107,20 +100,9 @@ function rhf(basis, molecule::Molecule, maxiter = 20, convergence = 1e-6, maxdii
 
         N = electroncount(molecule)
 
-        for n = 1:K
-            for m = 1:K
-                D[m, n] = 0.0
-                for a = 1:trunc(Int64, N / 2)
-                    D[m, n] += 2 * (C[m, a] * C[n, a])
-                end
-            end
-        end
+        D = [2 * sum(C[m, a] * C[n, a] for a in 1:trunc(Int64, N / 2)) for m in 1:K, n in 1:K]
 
-        for m = 1:K
-            for n = 1:K
-                Eel += 0.5 * D[n, m] * (Hcore[m, n] + F[m, n])
-            end
-        end
+        Eel = 0.5 * sum(D[n, m] * (Hcore[m, n] + F[m, n]) for m in 1:K, n in 1:K)
 
         if (abs(Eel - Eold) < convergence) && (iteration > 0)
             break
