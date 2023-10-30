@@ -23,7 +23,7 @@ function nuclearrepulsion(molecule::Molecule)
     return Vnn
 end
 
-function rhf(basis, molecule::Molecule, maxiter = 20, convergence = 1e-6, maxdiis = 5)
+function rhf(basis, molecule::Molecule, maxiter = 20, convergence = 1e-6, maxdiis = 10)
     S = overlap(basis)
     println("Overlap is done!")
 
@@ -111,5 +111,6 @@ function rhf(basis, molecule::Molecule, maxiter = 20, convergence = 1e-6, maxdii
         Vnn = nuclearrepulsion(molecule)
 
         println(Eel + Vnn)
+        println(Vnn)
     end
 end
