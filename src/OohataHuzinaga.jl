@@ -21,6 +21,7 @@ export kinetic
 export boys
 export attraction
 export repulsion
+export Results
 
 export rhf
 
