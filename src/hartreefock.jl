@@ -1,6 +1,5 @@
 struct Results
     energy::Float64
-    orbitals
     density
 end
 
