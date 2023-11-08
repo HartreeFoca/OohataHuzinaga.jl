@@ -1,3 +1,9 @@
+struct Results
+    energy::Float64
+    orbitals
+    density
+end
+
 function electroncount(molecule::Molecule)
     N = 0
 
@@ -83,4 +89,6 @@ function rhf(basis, molecule::Molecule, maxiter = 20, convergence = 1e-6)
         println(Eel + Vnn)
         println(Vnn)
     end
+
+    return Results(Eel, C, D)
 end
