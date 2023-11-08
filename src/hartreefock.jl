@@ -90,5 +90,5 @@ function rhf(basis, molecule::Molecule, maxiter = 20, convergence = 1e-6)
         println(Vnn)
     end
 
-    return Results(Eel, C, D)
+    return Results(Eel, D)
 end
