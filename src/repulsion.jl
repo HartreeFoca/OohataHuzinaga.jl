@@ -154,13 +154,6 @@ function Gxyz(lA, mA, nA, lB, mB, nB, lC, mC, nC, lD, mD, nD, a, b, c, d, RA, RB
     Gxyz *= exp(-(a * b * AB) / gP)
     Gxyz *= exp(-(c * d * CD) / gQ)
 
-    Na = normalization(a, lA, mA, nA)
-    Nb = normalization(b, lB, mB, nB)
-    Nc = normalization(c, lC, mC, nC)
-    Nd = normalization(d, lD, mD, nD)
-
-    Gxyz *= Na * Nb * Nc * Nd
-
     return Gxyz
 end
 
@@ -199,12 +192,17 @@ function repulsion(basis, molecule::Molecule)
             dₜ = basisₜ.d[s]
             dᵤ = basisᵤ.d[v]
 
+            Nᵢ = basisᵢ.N[k]
+            Nⱼ = basisⱼ.N[l]
+            Nₜ = basisₜ.N[s]
+            Nᵤ = basisᵤ.N[v]
+
             ℓᵢ, mᵢ, nᵢ = basisᵢ.ℓ, basisᵢ.m, basisᵢ.n
             ℓⱼ, mⱼ, nⱼ = basisⱼ.ℓ, basisⱼ.m, basisⱼ.n
             ℓₜ, mₜ, nₜ = basisₜ.ℓ, basisₜ.m, basisₜ.n
             ℓᵤ, mᵤ, nᵤ = basisᵤ.ℓ, basisᵤ.m, basisᵤ.n
 
-            tei = dᵢ * dⱼ * dₜ * dᵤ
+            tei = dᵢ * dⱼ * dₜ * dᵤ * Nᵢ * Nⱼ * Nₜ * Nᵤ
             tei *= Gxyz(ℓᵢ, mᵢ, nᵢ, ℓⱼ, mⱼ, nⱼ, ℓₜ, mₜ, nₜ, ℓᵤ, mᵤ, nᵤ, αᵢ, αⱼ, αₜ, αᵤ, Rᵢ, Rⱼ, Rₜ, Rᵤ)
             
             G[i, j, t, u] += tei
