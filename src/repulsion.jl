@@ -109,6 +109,7 @@ function repulsion(basis, molecule::Molecule)
 
         Ntei += 1
 
+        el = 0
         for k in 1:m, l in 1:p, s in 1:q, v in 1:r
             αᵢ = basisᵢ.α[k]
             αⱼ = basisⱼ.α[l]
@@ -132,9 +133,10 @@ function repulsion(basis, molecule::Molecule)
 
             tei = dᵢ * dⱼ * dₜ * dᵤ * Nᵢ * Nⱼ * Nₜ * Nᵤ
             tei *= Gxyz(ℓᵢ, mᵢ, nᵢ, ℓⱼ, mⱼ, nⱼ, ℓₜ, mₜ, nₜ, ℓᵤ, mᵤ, nᵤ, αᵢ, αⱼ, αₜ, αᵤ, Rᵢ, Rⱼ, Rₜ, Rᵤ)
-            
-            G[i, j, t, u] += tei
+
+            el += tei
         end
+        G[i, j, t, u] = el
     end
 
     return G
