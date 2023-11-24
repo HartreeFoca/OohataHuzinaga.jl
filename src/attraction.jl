@@ -62,12 +62,8 @@ function Vxyz(ℓᵢ, mᵢ, nᵢ, ℓⱼ, mⱼ, nⱼ, αᵢ, αⱼ, Rᵢ, Rⱼ, 
         end
     end
 
-    Nᵢ = normalization(αᵢ, ℓᵢ, mᵢ, nᵢ)
-    Nⱼ = normalization(αⱼ, ℓⱼ, mⱼ, nⱼ)
-
     Vxyz *= (2 * π) / γ
     Vxyz *= exp(-αᵢ * αⱼ * abs(IJ) / γ)
-    Vxyz *= Nᵢ * Nⱼ
     Vxyz *= -Z
 
     return Vxyz
@@ -103,8 +99,11 @@ function attraction(basis, molecule::Molecule)
                 ℓᵢ, mᵢ, nᵢ = basisᵢ.ℓ, basisᵢ.m, basisᵢ.n
                 ℓⱼ, mⱼ, nⱼ = basisⱼ.ℓ, basisⱼ.m, basisⱼ.n
 
+                Nᵢ = basisᵢ.N[k]
+                Nⱼ = basisⱼ.N[l]
+
                 V[i, j, natom] +=
-                            dᵢ * dⱼ * Vxyz(ℓᵢ, mᵢ, nᵢ, ℓⱼ, mⱼ, nⱼ, αᵢ, αⱼ, Rᵢ, Rⱼ, Rₖ, atomicnumbers[natom])
+                Nᵢ * Nⱼ * dᵢ * dⱼ * Vxyz(ℓᵢ, mᵢ, nᵢ, ℓⱼ, mⱼ, nⱼ, αᵢ, αⱼ, Rᵢ, Rⱼ, Rₖ, atomicnumbers[natom])
             end
         end
     end
