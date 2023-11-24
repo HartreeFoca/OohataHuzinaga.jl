@@ -11,9 +11,10 @@ end
 function overlap(basis)
     n = length(basis)
     S = zeros(n, n)
-    println(typeof(S))
 
-    for i in 1:n, j in 1:n
+    for c in CartesianIndices(S)
+        i, j = c[1], c[2]
+
         basisᵢ = basis[i]
         basisⱼ = basis[j]
         
