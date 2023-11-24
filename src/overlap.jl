@@ -10,7 +10,7 @@ end
 
 function overlap(basis)
     n = length(basis)
-    S = zeros(SMatrix{n, n, Float64})
+    S = zeros(SizedMatrix{n, n, Float64})
 
     for c in CartesianIndices(S)
         i, j = c[1], c[2]
