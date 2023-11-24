@@ -103,9 +103,8 @@ function attraction(basis, molecule::Molecule)
                 Nᵢ = basisᵢ.N[k]
                 Nⱼ = basisⱼ.N[l]
 
-                el += Nᵢ * Nⱼ * dᵢ * dⱼ * Vxyz(ℓᵢ, mᵢ, nᵢ, ℓⱼ, mⱼ, nⱼ, αᵢ, αⱼ, Rᵢ, Rⱼ, Rₖ, atomicnumbers[natom])
+                V[i, j, natom] += Nᵢ * Nⱼ * dᵢ * dⱼ * Vxyz(ℓᵢ, mᵢ, nᵢ, ℓⱼ, mⱼ, nⱼ, αᵢ, αⱼ, Rᵢ, Rⱼ, Rₖ, atomicnumbers[natom])
             end
-            V[i, j, natom] = el
         end
     end
     
