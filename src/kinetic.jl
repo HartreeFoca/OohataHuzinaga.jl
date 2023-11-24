@@ -15,7 +15,8 @@ function kinetic(basis, molecule::Molecule)
     n = length(basis)
     T = zeros(n, n)
 
-    for i in 1:n, j in 1:n
+    for c in CartesianIndices(T)
+        i, j = c[1], c[2]
         basisᵢ = basis[i]
         basisⱼ = basis[j]
         
@@ -27,6 +28,7 @@ function kinetic(basis, molecule::Molecule)
         m = length(basisᵢ.α)
         p = length(basisⱼ.α)
 
+        Tₐᵤₓ = zero(eltype(T))
         for k in 1:m, l in 1:p
             αᵢ = basisᵢ.α[k]
             αⱼ = basisⱼ.α[l]
@@ -40,12 +42,13 @@ function kinetic(basis, molecule::Molecule)
             ℓᵢ, mᵢ, nᵢ = basisᵢ.ℓ, basisᵢ.m, basisᵢ.n
             ℓⱼ, mⱼ, nⱼ = basisⱼ.ℓ, basisⱼ.m, basisⱼ.n
 
-            T[i, j] += (
+            T += (
                 exp(-αᵢ * αⱼ * dist / (αᵢ + αⱼ)) *
                 Nᵢ * Nⱼ * dᵢ * dⱼ *
                 Kxyz(Rᵢ, Rⱼ, αᵢ, αⱼ, ℓᵢ, ℓⱼ, mᵢ, mⱼ, nᵢ, nⱼ)
             )
         end
+        T[i, j] += Tₐᵤₓ
     end
 
     return T
