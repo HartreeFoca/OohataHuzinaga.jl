@@ -4,12 +4,6 @@ function doublefactorial(number)
     return fact
 end
 
-function distance(Rᵢ, Rⱼ)
-    d = (Rᵢ[1] - Rⱼ[1])^2 + (Rᵢ[2] - Rⱼ[2])^2 + (Rᵢ[3] - Rⱼ[3])^2
-
-    return d
-end
-
 function normalization(α, ℓ, m, n)
     N = (4 * α)^(ℓ + m + n)
     N /=
@@ -18,6 +12,12 @@ function normalization(α, ℓ, m, n)
     N = sqrt(N)
 
     return N
+end
+
+function distance(Rᵢ, Rⱼ)
+    d = (Rᵢ[1] - Rⱼ[1])^2 + (Rᵢ[2] - Rⱼ[2])^2 + (Rᵢ[3] - Rⱼ[3])^2
+
+    return d
 end
 
 @fastmath function cₖ(j, l, m, A, B)

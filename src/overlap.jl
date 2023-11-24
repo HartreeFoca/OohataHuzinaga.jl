@@ -31,15 +31,15 @@ function overlap(basis)
             dᵢ = basisᵢ.d[k]
             dⱼ = basisⱼ.d[l]
 
+            Nᵢ = basisᵢ.N[k]
+            Nⱼ = basisⱼ.N[l]
+
             ℓᵢ, mᵢ, nᵢ = basisᵢ.ℓ, basisᵢ.m, basisᵢ.n
             ℓⱼ, mⱼ, nⱼ = basisⱼ.ℓ, basisⱼ.m, basisⱼ.n
 
             S[i, j] += (
                 exp(-αᵢ * αⱼ * dist / (αᵢ + αⱼ)) *
-                normalization(αᵢ, ℓᵢ, mᵢ, nᵢ) *
-                normalization(αⱼ, ℓⱼ, mⱼ, nⱼ) *
-                dᵢ *
-                dⱼ *
+                Nᵢ * Nⱼ * dᵢ * dⱼ * 
                 Sxyz(Rᵢ, Rⱼ, αᵢ, αⱼ, ℓᵢ, ℓⱼ, mᵢ, mⱼ, nᵢ, nⱼ)
             )
         end

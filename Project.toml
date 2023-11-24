@@ -4,13 +4,11 @@ authors = ["Leticia-maria <leticiam@andrew.cmu.edu> and contributors"]
 version = "0.1.1"
 
 [deps]
-BasisSets = "086cb5bb-2461-57d8-8068-0aed7f5b5cf6"
 LinearAlgebra = "37e2e46d-f89d-539d-b4ee-838fcccc9c8e"
 SpecialFunctions = "276daf66-3868-5448-9aa4-cd146d93841b"
 TimerOutputs = "a759f4b9-e2f1-59dc-863e-4aeb61b1ea8f"
 
 [compat]
-BasisSets = "0.1.1"
 SpecialFunctions = "2"
 TimerOutputs = "^0.5.0"
 julia = "^1.6.7"
