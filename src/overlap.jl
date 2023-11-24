@@ -26,6 +26,9 @@ function overlap(basis)
         m = length(basisᵢ.α)
         p = length(basisⱼ.α)
 
+        ℓᵢ, mᵢ, nᵢ = basisᵢ.ℓ, basisᵢ.m, basisᵢ.n
+        ℓⱼ, mⱼ, nⱼ = basisⱼ.ℓ, basisⱼ.m, basisⱼ.n
+
         for k in 1:m, l in 1:p
             αᵢ = basisᵢ.α[k]
             αⱼ = basisⱼ.α[l]
@@ -35,9 +38,6 @@ function overlap(basis)
 
             Nᵢ = basisᵢ.N[k]
             Nⱼ = basisⱼ.N[l]
-
-            ℓᵢ, mᵢ, nᵢ = basisᵢ.ℓ, basisᵢ.m, basisᵢ.n
-            ℓⱼ, mⱼ, nⱼ = basisⱼ.ℓ, basisⱼ.m, basisⱼ.n
 
             S[i, j] += (
                 exp(-αᵢ * αⱼ * dist / (αᵢ + αⱼ)) *
