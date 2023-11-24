@@ -26,7 +26,7 @@ function overlap(basis)
         m = length(basisᵢ.α)
         p = length(basisⱼ.α)
 
-        Sₐᵤₓ = zero(eltype(S))
+        #Sₐᵤₓ = zero(eltype(S))
         for k in 1:m, l in 1:p
             αᵢ = basisᵢ.α[k]
             αⱼ = basisⱼ.α[l]
@@ -40,13 +40,13 @@ function overlap(basis)
             ℓᵢ, mᵢ, nᵢ = basisᵢ.ℓ, basisᵢ.m, basisᵢ.n
             ℓⱼ, mⱼ, nⱼ = basisⱼ.ℓ, basisⱼ.m, basisⱼ.n
 
-            Sₐᵤₓ += (
+            S[i, j] += (
                 exp(-αᵢ * αⱼ * dist / (αᵢ + αⱼ)) *
                 Nᵢ * Nⱼ * dᵢ * dⱼ * 
                 Sxyz(Rᵢ, Rⱼ, αᵢ, αⱼ, ℓᵢ, ℓⱼ, mᵢ, mⱼ, nᵢ, nⱼ)
             )
         end
-        S[i, j] += Sₐᵤₓ
+        #S[i, j] += Sₐᵤₓ
     end
 
     return S
