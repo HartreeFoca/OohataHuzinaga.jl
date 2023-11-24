@@ -40,97 +40,23 @@ function Gxyz(lA, mA, nA, lB, mB, nB, lC, mC, nC, lD, mD, nD, a, b, c, d, RA, RB
             for lp = 0:(lC+lD)
                 for rp = 0:trunc(Int64, lp / 2)
                     for i = 0:trunc(Int64, (l + lp - 2 * r - 2 * rp) / 2)
-                        gx = gi(
-                            l,
-                            lp,
-                            r,
-                            rp,
-                            i,
-                            lA,
-                            lB,
-                            RA[1],
-                            RB[1],
-                            RP[1],
-                            gP,
-                            lC,
-                            lD,
-                            RC[1],
-                            RD[1],
-                            RQ[1],
-                            gQ,
-                        )
+                        gx = gi(l, lp, r, rp, i, lA, lB, RA[1], RB[1], RP[1], gP, lC, lD, RC[1], RD[1], RQ[1], gQ)
 
                         for m = 0:(mA+mB)
                             for s = 0:trunc(Int64, m / 2)
                                 for mp = 0:(mC+mD)
                                     for sp = 0:trunc(Int64, mp / 2)
-                                        for j =
-                                            0:trunc(Int64, (m + mp - 2 * s - 2 * sp) / 2)
-                                            gy = gi(
-                                                m,
-                                                mp,
-                                                s,
-                                                sp,
-                                                j,
-                                                mA,
-                                                mB,
-                                                RA[2],
-                                                RB[2],
-                                                RP[2],
-                                                gP,
-                                                mC,
-                                                mD,
-                                                RC[2],
-                                                RD[2],
-                                                RQ[2],
-                                                gQ,
-                                            )
+                                        for j = 0:trunc(Int64, (m + mp - 2 * s - 2 * sp) / 2)
+                                            gy = gi(m, mp, s, sp, j, mA, mB, RA[2], RB[2], RP[2], gP, mC, mD, RC[2], RD[2], RQ[2], gQ)
 
                                             for n = 0:(nA+nB)
                                                 for t = 0:trunc(Int64, n / 2)
                                                     for np = 0:(nC+nD)
                                                         for tp = 0:trunc(Int64, np / 2)
-                                                            for k =
-                                                                0:trunc(
-                                                                Int64,
-                                                                (n + np - 2 * t - 2 * tp) /
-                                                                2,
-                                                            )
-                                                                gz = gi(
-                                                                    n,
-                                                                    np,
-                                                                    t,
-                                                                    tp,
-                                                                    k,
-                                                                    nA,
-                                                                    nB,
-                                                                    RA[3],
-                                                                    RB[3],
-                                                                    RP[3],
-                                                                    gP,
-                                                                    nC,
-                                                                    nD,
-                                                                    RC[3],
-                                                                    RD[3],
-                                                                    RQ[3],
-                                                                    gQ,
-                                                                )
+                                                            for k = 0:trunc(Int64, (n + np - 2 * t - 2 * tp) /2)
+                                                                gz = gi(n, np, t, tp, k, nA, nB, RA[3], RB[3], RP[3], gP, nC, nD, RC[3], RD[3], RQ[3], gQ)
 
-                                                                ν =
-                                                                    l +
-                                                                    lp +
-                                                                    m +
-                                                                    mp +
-                                                                    n +
-                                                                    np -
-                                                                    2 * (
-                                                                        r +
-                                                                        rp +
-                                                                        s +
-                                                                        sp +
-                                                                        t +
-                                                                        tp
-                                                                    ) - (i + j + k)
+                                                                ν = l + lp + m + mp + n + np - 2 * (r + rp + s + sp + t + tp) - (i + j + k)
                                                                 F = boys(ν, PQ / (4 * δ))
                                                                 Gxyz += gx * gy * gz * F
                                                             end
@@ -163,7 +89,9 @@ function repulsion(basis, molecule::Molecule)
 
     Ntei = 0
     
-    for i in 1:n, j in 1:n, t in 1:n, u in 1:n
+    for c in CartesianIndices(G)
+        i, j, t, u = c[1], c[2], c[3], c[4]
+
         basisᵢ = basis[i]
         basisⱼ = basis[j]
         basisₜ = basis[t]
