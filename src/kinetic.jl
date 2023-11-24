@@ -42,7 +42,7 @@ function kinetic(basis, molecule::Molecule)
             ℓᵢ, mᵢ, nᵢ = basisᵢ.ℓ, basisᵢ.m, basisᵢ.n
             ℓⱼ, mⱼ, nⱼ = basisⱼ.ℓ, basisⱼ.m, basisⱼ.n
 
-            T += (
+            Tₐᵤₓ += (
                 exp(-αᵢ * αⱼ * dist / (αᵢ + αⱼ)) *
                 Nᵢ * Nⱼ * dᵢ * dⱼ *
                 Kxyz(Rᵢ, Rⱼ, αᵢ, αⱼ, ℓᵢ, ℓⱼ, mᵢ, mⱼ, nᵢ, nⱼ)
