@@ -89,6 +89,7 @@ function attraction(basis, molecule::Molecule)
         for natom in 1:natoms
             Rₖ = molecule.coords[natom, :]
 
+            el = 0
             for k in 1:m, l in 1:p
                 αᵢ = basisᵢ.α[k]
                 αⱼ = basisⱼ.α[l]
@@ -102,9 +103,10 @@ function attraction(basis, molecule::Molecule)
                 Nᵢ = basisᵢ.N[k]
                 Nⱼ = basisⱼ.N[l]
 
-                V[i, j, natom] +=
+                el +=
                 Nᵢ * Nⱼ * dᵢ * dⱼ * Vxyz(ℓᵢ, mᵢ, nᵢ, ℓⱼ, mⱼ, nⱼ, αᵢ, αⱼ, Rᵢ, Rⱼ, Rₖ, atomicnumbers[natom])
             end
+            V[i, j, natom] = el
         end
     end
     
