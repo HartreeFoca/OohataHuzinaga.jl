@@ -11,6 +11,7 @@ end
 function overlap(basis)
     n = length(basis)
     S = zeros(n, n)
+    println(typeof(S))
 
     for i in 1:n, j in 1:n
         basisᵢ = basis[i]
