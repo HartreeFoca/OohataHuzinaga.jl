@@ -29,7 +29,9 @@ function overlap(basis)
         ℓᵢ, mᵢ, nᵢ = basisᵢ.ℓ, basisᵢ.m, basisᵢ.n
         ℓⱼ, mⱼ, nⱼ = basisⱼ.ℓ, basisⱼ.m, basisⱼ.n
 
-        for k in 1:m, l in 1:p
+        for e in CartesianIndices((m, p))
+            k, l = e[1], e[2]
+            
             αᵢ = basisᵢ.α[k]
             αⱼ = basisⱼ.α[l]
 

@@ -73,15 +73,17 @@ function attraction(basis, molecule::Molecule)
         Rᵢ = basisᵢ.R
         Rⱼ = basisⱼ.R
 
-        m = basisᵢ.size
-        p = basisⱼ.size
-
         ℓᵢ, mᵢ, nᵢ = basisᵢ.ℓ, basisᵢ.m, basisᵢ.n
         ℓⱼ, mⱼ, nⱼ = basisⱼ.ℓ, basisⱼ.m, basisⱼ.n
 
         Rₖ = molecule.coords[natom, :]
 
-        for k in 1:m, l in 1:p
+        m = basisᵢ.size
+        p = basisⱼ.size
+
+        for e in CartesianIndices((m, p))
+            k, l = e[1], e[2]
+            
             αᵢ = basisᵢ.α[k]
             αⱼ = basisⱼ.α[l]
     
