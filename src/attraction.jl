@@ -64,7 +64,9 @@ function attraction(basis, molecule::Molecule)
     n = length(basis)
     V = zeros(n, n, natoms)
 
-    for i in 1:n, j in 1:n
+    for c in CartesianIndices(V)
+        i, j, natom = c[1], c[2], c[3]
+
         basisᵢ = basis[i]
         basisⱼ = basis[j]
         
@@ -77,21 +79,19 @@ function attraction(basis, molecule::Molecule)
         ℓᵢ, mᵢ, nᵢ = basisᵢ.ℓ, basisᵢ.m, basisᵢ.n
         ℓⱼ, mⱼ, nⱼ = basisⱼ.ℓ, basisⱼ.m, basisⱼ.n
 
-        for natom in 1:natoms
-            Rₖ = molecule.coords[natom, :]
+        Rₖ = molecule.coords[natom, :]
 
-            for k in 1:m, l in 1:p
-                αᵢ = basisᵢ.α[k]
-                αⱼ = basisⱼ.α[l]
+        for k in 1:m, l in 1:p
+            αᵢ = basisᵢ.α[k]
+            αⱼ = basisⱼ.α[l]
     
-                dᵢ = basisᵢ.d[k]
-                dⱼ = basisⱼ.d[l]
+            dᵢ = basisᵢ.d[k]
+            dⱼ = basisⱼ.d[l]
 
-                Nᵢ = basisᵢ.N[k]
-                Nⱼ = basisⱼ.N[l]
+            Nᵢ = basisᵢ.N[k]
+            Nⱼ = basisⱼ.N[l]
 
-                V[i, j, natom] += Nᵢ * Nⱼ * dᵢ * dⱼ * Vxyz(ℓᵢ, mᵢ, nᵢ, ℓⱼ, mⱼ, nⱼ, αᵢ, αⱼ, Rᵢ, Rⱼ, Rₖ, atomicnumbers[natom])
-            end
+            V[i, j, natom] += Nᵢ * Nⱼ * dᵢ * dⱼ * Vxyz(ℓᵢ, mᵢ, nᵢ, ℓⱼ, mⱼ, nⱼ, αᵢ, αⱼ, Rᵢ, Rⱼ, Rₖ, atomicnumbers[natom])
         end
     end
     
