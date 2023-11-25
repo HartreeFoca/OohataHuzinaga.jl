@@ -87,8 +87,6 @@ function repulsion(basis, molecule::Molecule)
     n = length(basis)
     G = zeros(n, n, n, n)
 
-    Ntei = 0
-    
     for c in CartesianIndices(G)
         i, j, t, u = c[1], c[2], c[3], c[4]
 
@@ -107,7 +105,10 @@ function repulsion(basis, molecule::Molecule)
         q = length(basisₜ.α)
         r = length(basisᵤ.α)
 
-        Ntei += 1
+        ℓᵢ, mᵢ, nᵢ = basisᵢ.ℓ, basisᵢ.m, basisᵢ.n
+        ℓⱼ, mⱼ, nⱼ = basisⱼ.ℓ, basisⱼ.m, basisⱼ.n
+        ℓₜ, mₜ, nₜ = basisₜ.ℓ, basisₜ.m, basisₜ.n
+        ℓᵤ, mᵤ, nᵤ = basisᵤ.ℓ, basisᵤ.m, basisᵤ.n
 
         for k in 1:m, l in 1:p, s in 1:q, v in 1:r
             αᵢ = basisᵢ.α[k]
@@ -124,11 +125,6 @@ function repulsion(basis, molecule::Molecule)
             Nⱼ = basisⱼ.N[l]
             Nₜ = basisₜ.N[s]
             Nᵤ = basisᵤ.N[v]
-
-            ℓᵢ, mᵢ, nᵢ = basisᵢ.ℓ, basisᵢ.m, basisᵢ.n
-            ℓⱼ, mⱼ, nⱼ = basisⱼ.ℓ, basisⱼ.m, basisⱼ.n
-            ℓₜ, mₜ, nₜ = basisₜ.ℓ, basisₜ.m, basisₜ.n
-            ℓᵤ, mᵤ, nᵤ = basisᵤ.ℓ, basisᵤ.m, basisᵤ.n
 
             tei = dᵢ * dⱼ * dₜ * dᵤ * Nᵢ * Nⱼ * Nₜ * Nᵤ
             tei *= Gxyz(ℓᵢ, mᵢ, nᵢ, ℓⱼ, mⱼ, nⱼ, ℓₜ, mₜ, nₜ, ℓᵤ, mᵤ, nᵤ, αᵢ, αⱼ, αₜ, αᵤ, Rᵢ, Rⱼ, Rₜ, Rᵤ)

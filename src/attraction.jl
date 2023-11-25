@@ -21,7 +21,6 @@ function Vxyz(ℓᵢ, mᵢ, nᵢ, ℓⱼ, mⱼ, nⱼ, αᵢ, αⱼ, Rᵢ, Rⱼ, 
     PK = distance(Rₚ, Rₖ)
 
     Vxyz = 0
-
     for l = 0:(ℓᵢ+ℓⱼ)
         for r = 0:trunc(Int64, (l / 2))
             for i = 0:trunc(Int64, ((l - (2 * r)) / 2))
@@ -35,18 +34,7 @@ function Vxyz(ℓᵢ, mᵢ, nᵢ, ℓⱼ, mⱼ, nⱼ, αᵢ, αⱼ, Rᵢ, Rⱼ, 
                             for n = 0:(nᵢ+nⱼ)
                                 for t = 0:trunc(Int64, (n / 2))
                                     for k = 0:trunc(Int64, ((n - (2 * t)) / 2))
-                                        Vz = vᵢ(
-                                            n,
-                                            t,
-                                            k,
-                                            nᵢ,
-                                            nⱼ,
-                                            Rᵢ[3],
-                                            Rⱼ[3],
-                                            Rₖ[3],
-                                            Rₚ[3],
-                                            γ,
-                                        )
+                                        Vz = vᵢ(n, t, k, nᵢ, nⱼ, Rᵢ[3], Rⱼ[3], Rₖ[3], Rₚ[3], γ)
 
                                         ν = l + m + n - 2 * (r + s + t) - (i + j + k)
                                         F = boys(ν, (γ * abs(PK)))
@@ -89,7 +77,6 @@ function attraction(basis, molecule::Molecule)
         for natom in 1:natoms
             Rₖ = molecule.coords[natom, :]
 
-            el = 0
             for k in 1:m, l in 1:p
                 αᵢ = basisᵢ.α[k]
                 αⱼ = basisⱼ.α[l]
