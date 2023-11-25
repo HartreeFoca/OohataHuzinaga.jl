@@ -15,31 +15,22 @@ function overlap(basis)
     for c in CartesianIndices(S)
         i, j = c[1], c[2]
 
-        basisᵢ = basis[i]
-        basisⱼ = basis[j]
-        
-        Rᵢ = basisᵢ.R
-        Rⱼ = basisⱼ.R
-
-        dist = distance(Rᵢ, Rⱼ)
-
-        m = basisᵢ.size
-        p = basisⱼ.size
+        basisᵢ, basisⱼ = basis[i], basis[j]
+        Rᵢ, Rⱼ = basisᵢ.R, basisⱼ.R
+        m, p = basisᵢ.size, basisⱼ.size
 
         ℓᵢ, mᵢ, nᵢ = basisᵢ.ℓ, basisᵢ.m, basisᵢ.n
         ℓⱼ, mⱼ, nⱼ = basisⱼ.ℓ, basisⱼ.m, basisⱼ.n
 
+        dist = distance(Rᵢ, Rⱼ)
+        
         for e in CartesianIndices((m, p))
             k, l = e[1], e[2]
-            
-            αᵢ = basisᵢ.α[k]
-            αⱼ = basisⱼ.α[l]
 
-            dᵢ = basisᵢ.d[k]
-            dⱼ = basisⱼ.d[l]
+            αᵢ, αⱼ = basisᵢ.α[k], basisⱼ.α[l]
+            dᵢ, dⱼ = basisᵢ.d[k], basisⱼ.d[l]
 
-            Nᵢ = basisᵢ.N[k]
-            Nⱼ = basisⱼ.N[l]
+            Nᵢ, Nⱼ = basisᵢ.N[k], basisⱼ.N[l]
 
             S[i, j] += (
                 exp(-αᵢ * αⱼ * dist / (αᵢ + αⱼ)) *

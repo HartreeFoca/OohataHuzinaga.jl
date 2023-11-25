@@ -90,41 +90,21 @@ function repulsion(basis, molecule::Molecule)
     for c in CartesianIndices(G)
         i, j, t, u = c[1], c[2], c[3], c[4]
 
-        basisᵢ = basis[i]
-        basisⱼ = basis[j]
-        basisₜ = basis[t]
-        basisᵤ = basis[u]
-        
-        Rᵢ = basisᵢ.R
-        Rⱼ = basisⱼ.R
-        Rₜ = basisₜ.R
-        Rᵤ = basisᵤ.R
-
-        m = basisᵢ.size
-        p = basisⱼ.size
-        q = basisₜ.size
-        r = basisᵤ.size
+        basisᵢ, basisⱼ, basisₜ, basisᵤ = basis[i], basis[j], basis[t], basis[u]
+        Rᵢ, Rⱼ, Rₜ, Rᵤ = basisᵢ.R, basisⱼ.R, basisₜ.R, basisᵤ.R
+        m, p, q, r = basisᵢ.size, basisⱼ.size, basisₜ.size, basisᵤ.size
 
         ℓᵢ, mᵢ, nᵢ = basisᵢ.ℓ, basisᵢ.m, basisᵢ.n
         ℓⱼ, mⱼ, nⱼ = basisⱼ.ℓ, basisⱼ.m, basisⱼ.n
         ℓₜ, mₜ, nₜ = basisₜ.ℓ, basisₜ.m, basisₜ.n
         ℓᵤ, mᵤ, nᵤ = basisᵤ.ℓ, basisᵤ.m, basisᵤ.n
 
-        for k in 1:m, l in 1:p, s in 1:q, v in 1:r
-            αᵢ = basisᵢ.α[k]
-            αⱼ = basisⱼ.α[l]
-            αₜ = basisₜ.α[s]
-            αᵤ = basisᵤ.α[v]
+        for e in CartesianIndices((m, p, q, r))
+            k, l, s, v = e[1], e[2], e[3], e[4]
 
-            dᵢ = basisᵢ.d[k]
-            dⱼ = basisⱼ.d[l]
-            dₜ = basisₜ.d[s]
-            dᵤ = basisᵤ.d[v]
-
-            Nᵢ = basisᵢ.N[k]
-            Nⱼ = basisⱼ.N[l]
-            Nₜ = basisₜ.N[s]
-            Nᵤ = basisᵤ.N[v]
+            αᵢ, αⱼ, αₜ, αᵤ = basisᵢ.α[k], basisⱼ.α[l], basisₜ.α[s], basisᵤ.α[v]
+            dᵢ, dⱼ, dₜ, dᵤ = basisᵢ.d[k], basisⱼ.d[l], basisₜ.d[s], basisᵤ.d[v]
+            Nᵢ, Nⱼ, Nₜ, Nᵤ = basisᵢ.N[k], basisⱼ.N[l], basisₜ.N[s], basisᵤ.N[v]
 
             tei = dᵢ * dⱼ * dₜ * dᵤ * Nᵢ * Nⱼ * Nₜ * Nᵤ
             tei *= Gxyz(ℓᵢ, mᵢ, nᵢ, ℓⱼ, mⱼ, nⱼ, ℓₜ, mₜ, nₜ, ℓᵤ, mᵤ, nᵤ, αᵢ, αⱼ, αₜ, αᵤ, Rᵢ, Rⱼ, Rₜ, Rᵤ)

@@ -67,31 +67,21 @@ function attraction(basis, molecule::Molecule)
     for c in CartesianIndices(V)
         i, j, natom = c[1], c[2], c[3]
 
-        basisᵢ = basis[i]
-        basisⱼ = basis[j]
-        
-        Rᵢ = basisᵢ.R
-        Rⱼ = basisⱼ.R
+        basisᵢ, basisⱼ = basis[i], basis[j]
+        Rᵢ, Rⱼ = basisᵢ.R, basisⱼ.R
 
         ℓᵢ, mᵢ, nᵢ = basisᵢ.ℓ, basisᵢ.m, basisᵢ.n
         ℓⱼ, mⱼ, nⱼ = basisⱼ.ℓ, basisⱼ.m, basisⱼ.n
 
         Rₖ = molecule.coords[natom, :]
-
-        m = basisᵢ.size
-        p = basisⱼ.size
+        m, p = basisᵢ.size, basisⱼ.size
 
         for e in CartesianIndices((m, p))
             k, l = e[1], e[2]
-            
-            αᵢ = basisᵢ.α[k]
-            αⱼ = basisⱼ.α[l]
-    
-            dᵢ = basisᵢ.d[k]
-            dⱼ = basisⱼ.d[l]
 
-            Nᵢ = basisᵢ.N[k]
-            Nⱼ = basisⱼ.N[l]
+            αᵢ, αⱼ = basisᵢ.α[k], basisⱼ.α[l]
+            dᵢ, dⱼ = basisᵢ.d[k], basisⱼ.d[l]
+            Nᵢ, Nⱼ = basisᵢ.N[k], basisⱼ.N[l]
 
             V[i, j, natom] += Nᵢ * Nⱼ * dᵢ * dⱼ * Vxyz(ℓᵢ, mᵢ, nᵢ, ℓⱼ, mⱼ, nⱼ, αᵢ, αⱼ, Rᵢ, Rⱼ, Rₖ, atomicnumbers[natom])
         end
