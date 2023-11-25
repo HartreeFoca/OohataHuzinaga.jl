@@ -23,8 +23,8 @@ function overlap(basis)
 
         dist = distance(Rᵢ, Rⱼ)
 
-        m = length(basisᵢ.α)
-        p = length(basisⱼ.α)
+        m = basisᵢ.size
+        p = basisⱼ.size
 
         ℓᵢ, mᵢ, nᵢ = basisᵢ.ℓ, basisᵢ.m, basisᵢ.n
         ℓⱼ, mⱼ, nⱼ = basisⱼ.ℓ, basisⱼ.m, basisⱼ.n

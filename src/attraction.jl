@@ -71,8 +71,11 @@ function attraction(basis, molecule::Molecule)
         Rᵢ = basisᵢ.R
         Rⱼ = basisⱼ.R
 
-        m = length(basisᵢ.α)
-        p = length(basisⱼ.α)
+        m = basisᵢ.size
+        p = basisⱼ.size
+
+        ℓᵢ, mᵢ, nᵢ = basisᵢ.ℓ, basisᵢ.m, basisᵢ.n
+        ℓⱼ, mⱼ, nⱼ = basisⱼ.ℓ, basisⱼ.m, basisⱼ.n
 
         for natom in 1:natoms
             Rₖ = molecule.coords[natom, :]
@@ -83,9 +86,6 @@ function attraction(basis, molecule::Molecule)
     
                 dᵢ = basisᵢ.d[k]
                 dⱼ = basisⱼ.d[l]
-    
-                ℓᵢ, mᵢ, nᵢ = basisᵢ.ℓ, basisᵢ.m, basisᵢ.n
-                ℓⱼ, mⱼ, nⱼ = basisⱼ.ℓ, basisⱼ.m, basisⱼ.n
 
                 Nᵢ = basisᵢ.N[k]
                 Nⱼ = basisⱼ.N[l]

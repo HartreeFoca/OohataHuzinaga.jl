@@ -100,10 +100,10 @@ function repulsion(basis, molecule::Molecule)
         Rₜ = basisₜ.R
         Rᵤ = basisᵤ.R
 
-        m = length(basisᵢ.α)
-        p = length(basisⱼ.α)
-        q = length(basisₜ.α)
-        r = length(basisᵤ.α)
+        m = basisᵢ.size
+        p = basisⱼ.size
+        q = basisₜ.size
+        r = basisᵤ.size
 
         ℓᵢ, mᵢ, nᵢ = basisᵢ.ℓ, basisᵢ.m, basisᵢ.n
         ℓⱼ, mⱼ, nⱼ = basisⱼ.ℓ, basisⱼ.m, basisⱼ.n
