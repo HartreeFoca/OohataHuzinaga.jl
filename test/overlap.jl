@@ -1,6 +1,6 @@
 @time @testset "overlap.jl" begin
-    methane = molecule("data/methane.xyz")
-    basis = parsebasis(methane, "sto-3g")
+    methane = BasisSets.molecule("data/methane.xyz")
+    basis = BasisSets.parsebasis(methane, "sto-3g")
     @test isapprox(
         overlap(basis),
         [

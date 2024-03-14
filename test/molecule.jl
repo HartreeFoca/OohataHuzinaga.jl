@@ -1,5 +1,5 @@
 @time @testset begin
-    methane = molecule("data/methane.xyz")
+    methane = BasisSets.molecule("data/methane.xyz")
     @test methane.atoms == ["C", "H", "H", "H", "H"]
     @test methane.coords == [
         0.00001021434087 0.00001532972083 -0.00001493500137;
