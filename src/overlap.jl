@@ -8,7 +8,7 @@ function Sxyz(Rᵢ, Rⱼ, αᵢ, αⱼ, ℓᵢ, ℓⱼ, mᵢ, mⱼ, nᵢ, nⱼ)
     return Sx * Sy * Sz
 end
 
-function overlap(basis::Vector{GaussianBasisSet})
+function overlap(basis::Vector{BasisSets.GaussianBasisSet})
     n = length(basis)
     S = zeros(n, n)
 
