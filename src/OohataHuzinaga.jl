@@ -2,7 +2,6 @@ module OohataHuzinaga
 using LinearAlgebra
 using SpecialFunctions
 using TimerOutputs
-Pkg.add("../BasisSets.jl/")
 using BasisSets
 using StaticArrays
 
