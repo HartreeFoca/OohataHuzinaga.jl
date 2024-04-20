@@ -18,6 +18,8 @@ export gaussianproduct
 export normalization
 
 export overlap
+export Operator
+export oei
 export kinetic
 export boys
 export attraction

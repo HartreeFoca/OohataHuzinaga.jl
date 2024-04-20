@@ -16,7 +16,6 @@ end
 
 function distance(Rᵢ, Rⱼ)
     d = (Rᵢ[1] - Rⱼ[1])^2 + (Rᵢ[2] - Rⱼ[2])^2 + (Rᵢ[3] - Rⱼ[3])^2
-
     return d
 end
 
