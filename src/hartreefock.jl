@@ -1,5 +1,7 @@
 struct Results
+    total::Float64
     energy::Float64
+    repulsion::Float64
     density
 end
 
@@ -84,10 +86,12 @@ function rhf(basis, molecule::Molecule, maxiter = 20, convergence = 1e-6)
         end
 
         Vnn = nuclearrepulsion(molecule)
+        
+        Total = Eel + Vnn
 
         println(Eel + Vnn)
         println(Vnn)
     end
 
-    return Results(Eel, D)
+    return Results(Total, Eel, Vnn, D)
 end
