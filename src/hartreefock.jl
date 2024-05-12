@@ -53,6 +53,7 @@ function rhf(basis, molecule::Molecule, maxiter = 20, convergence = 1e-6)
     X = sqrt(inv(S))
 
     Eel = 0.0
+    Vnn = 0.0
 
     println("Starting SCF iterations...")
 
