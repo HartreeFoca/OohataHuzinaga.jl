@@ -86,12 +86,10 @@ function rhf(basis, molecule::Molecule, maxiter = 20, convergence = 1e-6)
         end
 
         Vnn = nuclearrepulsion(molecule)
-        
-        Total = Eel + Vnn
 
         println(Eel + Vnn)
         println(Vnn)
     end
 
-    return Results(Total, Eel, Vnn, D)
+    return Results(Eel + Vnn, Eel, Vnn, D)
 end
