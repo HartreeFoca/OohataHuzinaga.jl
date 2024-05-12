@@ -1,5 +1,5 @@
 struct Operator<:Function
-    ô
+    ô::Function
 end
 
 function Kxyz(Rᵢ, Rⱼ, αᵢ, αⱼ, ℓᵢ, ℓⱼ, mᵢ, mⱼ, nᵢ, nⱼ)
