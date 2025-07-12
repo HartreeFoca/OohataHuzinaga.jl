@@ -1,4 +1,4 @@
-function θ(l, lA, lB, PA, PB, r, g)
+@inline function θ(l, lA, lB, PA, PB, r, g)
     θ = cₖ(l, lA, lB, PA, PB)
     θ *= factorial(l) * g^(r - l)
     θ /= factorial(r) * factorial(l - 2 * r)
@@ -6,7 +6,7 @@ function θ(l, lA, lB, PA, PB, r, g)
     return θ
 end
 
-function gi(l, lp, r, rp, i, lA, lB, Ai, Bi, Pi, gP, lC, lD, Ci, Di, Qi, gQ)
+@inline function gi(l, lp, r, rp, i, lA, lB, Ai, Bi, Pi, gP, lC, lD, Ci, Di, Qi, gQ)
     δ = 1 / (4 * gP) + 1 / (4 * gQ)
 
     gi = (-1.0)^l
