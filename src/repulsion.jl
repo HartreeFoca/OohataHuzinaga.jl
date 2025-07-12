@@ -41,21 +41,21 @@ function Gxyz(lA, mA, nA, lB, mB, nB, lC, mC, nC, lD, mD, nD, a, b, c, d, RA, RB
                 for rp = 0:trunc(Int64, lp / 2)
                     for i = 0:trunc(Int64, (l + lp - 2 * r - 2 * rp) / 2)
                         gx = gi(l, lp, r, rp, i, lA, lB, RA[1], RB[1], RP[1], gP, lC, lD, RC[1], RD[1], RQ[1], gQ)
-
+                        println("Calculating gx for l=$l, lp=$lp, r=$r, rp=$rp, i=$i...")
                         for m = 0:(mA+mB)
                             for s = 0:trunc(Int64, m / 2)
                                 for mp = 0:(mC+mD)
                                     for sp = 0:trunc(Int64, mp / 2)
                                         for j = 0:trunc(Int64, (m + mp - 2 * s - 2 * sp) / 2)
                                             gy = gi(m, mp, s, sp, j, mA, mB, RA[2], RB[2], RP[2], gP, mC, mD, RC[2], RD[2], RQ[2], gQ)
-
+                                            println("Calculating gy for m=$m, mp=$mp, s=$s, sp=$sp, j=$j...")
                                             for n = 0:(nA+nB)
                                                 for t = 0:trunc(Int64, n / 2)
                                                     for np = 0:(nC+nD)
                                                         for tp = 0:trunc(Int64, np / 2)
                                                             for k = 0:trunc(Int64, (n + np - 2 * t - 2 * tp) /2)
                                                                 gz = gi(n, np, t, tp, k, nA, nB, RA[3], RB[3], RP[3], gP, nC, nD, RC[3], RD[3], RQ[3], gQ)
-
+                                                                println("Calculating gz for n=$n, np=$np, t=$t, tp=$tp, k=$k...")
                                                                 ν = l + lp + m + mp + n + np - 2 * (r + rp + s + sp + t + tp) - (i + j + k)
                                                                 F = boys(ν, PQ / (4 * δ))
                                                                 Gxyz += gx * gy * gz * F
@@ -106,6 +106,7 @@ function repulsion(basis, molecule::Molecule)
             dᵢ, dⱼ, dₜ, dᵤ = basisᵢ.d[k], basisⱼ.d[l], basisₜ.d[s], basisᵤ.d[v]
             Nᵢ, Nⱼ, Nₜ, Nᵤ = basisᵢ.N[k], basisⱼ.N[l], basisₜ.N[s], basisᵤ.N[v]
 
+            println("Calculating G[$i, $j, $t, $u]...")
             tei = dᵢ * dⱼ * dₜ * dᵤ * Nᵢ * Nⱼ * Nₜ * Nᵤ
             tei *= Gxyz(ℓᵢ, mᵢ, nᵢ, ℓⱼ, mⱼ, nⱼ, ℓₜ, mₜ, nₜ, ℓᵤ, mᵤ, nᵤ, αᵢ, αⱼ, αₜ, αᵤ, Rᵢ, Rⱼ, Rₜ, Rᵤ)
 
