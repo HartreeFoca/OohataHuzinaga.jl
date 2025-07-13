@@ -35,7 +35,7 @@ function Gxyz(lA, mA, nA, lB, mB, nB, lC, mC, nC, lD, mD, nD, a, b, c, d, RA, RB
 
     Gxyz = 0.0
 
-    for l = 0:(lA+lB)
+     @inbounds for l = 0:(lA+lB)
         for r = 0:trunc(Int64, l / 2)
             for lp = 0:(lC+lD)
                 for rp = 0:trunc(Int64, lp / 2)
